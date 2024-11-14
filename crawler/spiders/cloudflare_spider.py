@@ -34,8 +34,8 @@ class CloudflareSpider(scrapy.Spider):
         }
         self.url = 'https://xxxx/xxx/xxx/'
         self.proxies = {
-            "http": "http://127.0.0.1:59292",
-            "https": "http://127.0.0.1:59292",
+            "http": "http://127.0.0.1:10819",
+            "https": "http://127.0.0.1:10819",
         }
 
     def start_requests(self):
@@ -46,13 +46,21 @@ class CloudflareSpider(scrapy.Spider):
                 'sort': 'top',
             }
             full_url = self.url + '?' + urlencode(params)
+            # yield scrapy.Request(
+            #     url=full_url,
+            #     headers=self.headers,
+            #     callback=self.parse,
+            #     dont_filter=True,
+            #     meta={"proxies": self.proxies}
+            # )
             yield scrapy.Request(
-                url=full_url,
+                url="https://apkpure.com/cn/shawarma-legend/com.company.shaw/download",
                 headers=self.headers,
                 callback=self.parse,
                 dont_filter=True,
                 meta={"proxies": self.proxies}
             )
+
 
     def parse(self, response, **kwargs):
         print(response.text)
